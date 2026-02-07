@@ -1,0 +1,634 @@
+/* ============================================
+   Valentine's Day Website Styles (modified - floating hearts removed)
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============ Root & General ============ */
+
+:root {
+    --primary-pink: #ff69b4;
+    --soft-pink: #ffe4e1;
+    --deep-red: #e91e63;
+    --white: #ffffff;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffe4e1 0%, #ffd6e0 100%);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* ============ Screen Containers ============ */
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============ Intro Screen ============ */
+
+.intro-content {
+    text-align: center;
+    animation: slideUp 0.8s ease-out;
+}
+
+.intro-emoji {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.intro-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--deep-red);
+    font-weight: 700;
+}
+
+.intro-content p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 49%, 100% {
+        opacity: 1;
+    }
+    50%, 99% {
+        opacity: 0.5;
+    }
+}
+
+/* ============ Question Screen ============ */
+
+.question-content {
+    text-align: center;
+    animation: slideUp 0.8s ease-out;
+}
+
+.hearts-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.hearts-title span {
+    font-size: 2.5rem;
+    animation: float-small 3s ease-in-out infinite;
+}
+
+@keyframes float-small {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.question-content h1 {
+    font-size: 3rem;
+    color: var(--deep-red);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+}
+
+/* ============ Button Styles ============ */
+
+.button-container {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    position: relative;
+}
+
+.btn-primary {
+    background-color: var(--primary-pink);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--deep-red);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(233, 30, 99, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.btn-yes {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-yes:hover {
+    background-color: var(--deep-red);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(233, 30, 99, 0.5);
+}
+
+.btn-no {
+    background-color: var(--soft-pink);
+    color: var(--text-dark);
+    /* removed absolute positioning so NO sits to the right of YES inside .button-container */
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+/* ============ Modal Styles ============ */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    z-index: 20;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    text-align: center;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotateZ(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotateZ(0deg);
+    }
+}
+
+.modal-image {
+    margin-bottom: 1.5rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
+}
+
+.modal-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.modal-content h2 {
+    font-size: 1.8rem;
+    color: var(--deep-red);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.modal-content p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text-dark);
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn:hover {
+    color: var(--primary-pink);
+    transform: rotate(90deg);
+}
+
+/* ============ Confetti Animation ============ */
+
+.confetti-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confetti-fall 3s ease-in forwards;
+}
+
+@keyframes confetti-fall {
+    to {
+        transform: translateY(300px) translateX(var(--tx)) rotateZ(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============ Personal Photo Styles ============ */
+
+.personal-photo {
+    margin: 1.25rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* made the personal photo larger */
+.personal-photo img {
+    width: 320px;              /* larger on desktop */
+    height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    border: 4px solid rgba(255,255,255,0.8);
+}
+
+/* responsive adjustments */
+@media (max-width: 1024px) {
+    .personal-photo img {
+        width: 260px;
+        height: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .personal-photo img {
+        width: 220px;
+        height: 220px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .personal-photo img {
+        width: 180px;
+        height: 180px;
+        border-radius: 10px;
+    }
+}
+
+/* ============ Responsive Design ============ */
+
+@media (max-width: 1024px) {
+    body {
+        padding: 1rem;
+    }
+
+    .intro-content h1,
+    .question-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .question-content h1 {
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .intro-content h1,
+    .question-content h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+
+    .intro-content p,
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .intro-emoji {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hearts-title {
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hearts-title span {
+        font-size: 2rem;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+        min-height: 48px;
+        border-radius: 30px;
+    }
+
+    .btn-yes,
+    .btn-no {
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    .btn-no {
+        /* keep it inline/relative on small screens */
+        position: relative;
+    }
+
+    .modal {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem;
+        width: 95%;
+        max-width: 400px;
+        border-radius: 15px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.4rem;
+        line-height: 1.3;
+        margin-bottom: 1rem;
+    }
+
+    .modal-content p {
+        font-size: 0.95rem;
+    }
+
+    .close-btn {
+        top: 0.8rem;
+        right: 0.8rem;
+        font-size: 1.8rem;
+        width: 36px;
+        height: 36px;
+    }
+
+    .modal-image {
+        margin-bottom: 1.2rem;
+        border-radius: 12px;
+    }
+
+    .confetti {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+        background: linear-gradient(135deg, #ffe4e1 0%, #ffd6e0 100%);
+    }
+
+    .intro-content,
+    .question-content {
+        padding: 1rem;
+    }
+
+    .intro-content h1,
+    .question-content h1 {
+        font-size: 1.4rem;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+    }
+
+    .intro-content p,
+    .subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .intro-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .hearts-title {
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hearts-title span {
+        font-size: 1.4rem;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+        border-radius: 25px;
+    }
+
+    .btn-primary {
+        font-size: 0.95rem;
+    }
+
+    .btn-yes,
+    .btn-no {
+        padding: 0.85rem 1rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+
+    .btn-yes:hover {
+        transform: translateY(-3px);
+    }
+
+    .modal-content {
+        padding: 1.2rem;
+        width: 95%;
+        max-width: 350px;
+        border-radius: 15px;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+    }
+
+    .modal-content p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .close-btn {
+        top: 0.6rem;
+        right: 0.6rem;
+        font-size: 1.6rem;
+        width: 32px;
+        height: 32px;
+    }
+
+    .modal-image {
+        margin-bottom: 1rem;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .intro-content h1,
+    .question-content h1 {
+        font-size: 1.2rem;
+    }
+
+    .intro-emoji {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .hearts-title span {
+        font-size: 1.2rem;
+    }
+
+    .button-container {
+        max-width: 260px;
+        gap: 0.6rem;
+    }
+
+    .btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+        min-height: 42px;
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .modal-content p {
+        font-size: 0.85rem;
+    }
+}
